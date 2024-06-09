@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/cockroachdb/errors"
 	"github.com/getsentry/sentry-go"
+	"log"
 	"net/http"
 )
 
@@ -19,6 +20,7 @@ func renderFile(res http.ResponseWriter, filename string) {
 	b, err := static.ReadFile(filename)
 	if err != nil {
 		sentry.CaptureException(errors.WithStack(err))
+		log.Printf("[ERROR] renderFile %v\n", errors.WithStack(err))
 		http.Error(res, "error", http.StatusInternalServerError)
 		return
 	}
