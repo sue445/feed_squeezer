@@ -1,12 +1,18 @@
 package main_test
 
 import (
+	"flag"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/assert"
 	"github.com/sue445/feed_proxy"
 	"os"
 	"testing"
 )
+
+func init() {
+	testing.Init()
+	flag.Parse()
+}
 
 func TestGetContentFromURL(t *testing.T) {
 	httpmock.Activate()

@@ -23,7 +23,11 @@ var (
 	sentryDsn string
 )
 
-func init() {
+func printVersion() {
+	fmt.Printf("feec_proxy %s, build %s\n", Version, Revision)
+}
+
+func main() {
 	flag.BoolVar(&isPrintVersion, "version", false, "Whether showing version")
 
 	flag.Parse()
@@ -31,13 +35,7 @@ func init() {
 	if os.Getenv("SENTRY_DSN") != "" {
 		sentryDsn = os.Getenv("SENTRY_DSN")
 	}
-}
 
-func printVersion() {
-	fmt.Printf("feec_proxy %s, build %s\n", Version, Revision)
-}
-
-func main() {
 	if isPrintVersion {
 		printVersion()
 		return
