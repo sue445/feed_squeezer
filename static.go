@@ -20,6 +20,7 @@ func renderFile(res http.ResponseWriter, filename string) {
 	if err != nil {
 		sentry.CaptureException(errors.WithStack(err))
 		http.Error(res, "error", http.StatusInternalServerError)
+		return
 	}
 
 	content := string(b)
