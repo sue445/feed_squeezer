@@ -30,6 +30,50 @@ func init() {
 	}
 }
 
+func feedHandler(res http.ResponseWriter, req *http.Request) {
+	feedURL := req.FormValue("feed")
+	query := req.FormValue("query")
+
+	sentry.ConfigureScope(func(scope *sentry.Scope) {
+		scope.SetTags(map[string]string{
+			"feed":  feedURL,
+			"query": query,
+		})
+	})
+
+	atom, err := generateFeed(feedURL, query)
+
+	if err != nil {
+		sentry.CaptureException(errors.WithStack(err))
+		log.Printf("[ERROR] feedHandler %v\n", errors.WithStack(err))
+		http.Error(res, "error", http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Fprint(res, atom)
+	res.WriteHeader(http.StatusOK)
+}
+
+func generateFeed(feedURL string, query string) (string, error) {
+	feedData, err := GetContentFromCache(feedURL)
+	if err != nil {
+		return "", errors.WithStack(err)
+	}
+
+	sentry.ConfigureScope(func(scope *sentry.Scope) {
+		scope.SetContext("generateFeed", map[string]interface{}{
+			"feedData": feedData,
+		})
+	})
+
+	atom, err := GenerateSqueezedAtom(feedData, query)
+	if err != nil {
+		return "", errors.WithStack(err)
+	}
+
+	return atom, nil
+}
+
 // GenerateSqueezedAtom squeeze feedData with query
 func GenerateSqueezedAtom(feedData string, query string) (string, error) {
 	fp := gofeed.NewParser()
