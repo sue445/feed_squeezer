@@ -47,7 +47,15 @@ func feedHandler(res http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		sentry.CaptureException(errors.WithStack(err))
 		log.Printf("[ERROR] feedHandler %v\n", errors.WithStack(err))
-		http.Error(res, "error", http.StatusInternalServerError)
+
+		status, err2 := GetStatusCode(err.Error())
+		if err2 == nil && status >= 0 {
+			// respect status code in error
+			http.Error(res, err.Error(), status)
+		} else {
+			http.Error(res, "internal error", http.StatusInternalServerError)
+		}
+
 		return
 	}
 
