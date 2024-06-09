@@ -21,6 +21,24 @@ func TestGetContentFromURL(t *testing.T) {
 	}
 }
 
+func TestGetContentFromCache(t *testing.T) {
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
+
+	httpmock.RegisterResponder("GET", "http://example.com/test.txt",
+		httpmock.NewStringResponder(200, ReadTestData("testdata/test.txt")))
+
+	gotFromOrigin, err := main.GetContentFromURL("http://example.com/test.txt")
+	if assert.NoError(t, err) {
+		assert.Equal(t, gotFromOrigin, "test")
+	}
+
+	gotFromCache, err := main.GetContentFromURL("http://example.com/test.txt")
+	if assert.NoError(t, err) {
+		assert.Equal(t, gotFromCache, "test")
+	}
+}
+
 // ReadTestData returns testdata
 func ReadTestData(filename string) string {
 	buf, err := os.ReadFile(filename)
