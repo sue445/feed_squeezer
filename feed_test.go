@@ -102,6 +102,14 @@ func TestNormalize(t *testing.T) {
 			str:  "１２３",
 			want: "123",
 		},
+		{
+			str:  " abc ",
+			want: "abc",
+		},
+		{
+			str:  " ",
+			want: "",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.str, func(t *testing.T) {

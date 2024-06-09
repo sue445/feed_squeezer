@@ -134,6 +134,7 @@ func GenerateSqueezedAtom(feedData string, query string) (string, error) {
 func Normalize(str string) string {
 	str = width.Fold.String(str)
 	str = strings.ToLower(str)
+	str = strings.TrimSpace(str)
 	return str
 }
 
