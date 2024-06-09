@@ -8,11 +8,12 @@ require (
 	github.com/alecthomas/participle/v2 v2.1.1
 	github.com/allegro/bigcache/v3 v3.1.0
 	github.com/cockroachdb/errors v1.11.3
-	github.com/getsentry/sentry-go v0.27.0
+	github.com/getsentry/sentry-go v0.28.0
 	github.com/gorilla/feeds v1.1.2
 	github.com/jarcoal/httpmock v1.3.1
 	github.com/mmcdole/gofeed v1.3.0
 	github.com/stretchr/testify v1.8.2
+	golang.org/x/text v0.14.0
 )
 
 require (
@@ -33,6 +34,5 @@ require (
 	github.com/rogpeppe/go-internal v1.9.0 // indirect
 	golang.org/x/net v0.23.0 // indirect
 	golang.org/x/sys v0.18.0 // indirect
-	golang.org/x/text v0.14.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
