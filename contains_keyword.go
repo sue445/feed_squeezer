@@ -7,16 +7,16 @@ import (
 )
 
 type Expression struct {
-	Terms []*Term `@@ { "|" @@ }`
+	Terms []*Term `@@ { "|" @@ }` //nolint:govet
 }
 
 type Term struct {
-	Factors []*Factor `@@ { @@ }`
+	Factors []*Factor `@@ { @@ }` //nolint:govet
 }
 
 type Factor struct {
-	Keyword string      `  @Ident`
-	Group   *Expression `| "(" @@ ")"`
+	Keyword string      `  @Ident`     //nolint:govet
+	Group   *Expression `| "(" @@ ")"` //nolint:govet
 }
 
 var keywordLexer = lexer.MustSimple([]lexer.SimpleRule{
