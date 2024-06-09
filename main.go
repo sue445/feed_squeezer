@@ -62,6 +62,7 @@ func main() {
 	})
 
 	http.HandleFunc("/", sentryHandler.HandleFunc(indexHandler))
+	http.HandleFunc("/api/feed", sentryHandler.HandleFunc(feedHandler))
 
 	fmt.Printf("feed_proxy started: port=%s\n", port)
 

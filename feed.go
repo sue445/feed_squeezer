@@ -12,6 +12,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -28,6 +29,74 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func feedHandler(res http.ResponseWriter, req *http.Request) {
+	feedURL := req.FormValue("feed")
+	query := req.FormValue("query")
+
+	sentry.ConfigureScope(func(scope *sentry.Scope) {
+		scope.SetTags(map[string]string{
+			"feed":  feedURL,
+			"query": query,
+		})
+	})
+
+	atom, err := generateFeed(feedURL, query)
+
+	if err != nil {
+		sentry.CaptureException(errors.WithStack(err))
+		log.Printf("[ERROR] feedHandler %v\n", errors.WithStack(err))
+
+		status, err2 := GetStatusCode(err.Error())
+		if err2 == nil && status >= 0 {
+			// respect status code in error
+			http.Error(res, err.Error(), status)
+		} else {
+			http.Error(res, "internal error", http.StatusInternalServerError)
+		}
+
+		return
+	}
+
+	fmt.Fprint(res, atom)
+	res.WriteHeader(http.StatusOK)
+}
+
+// GetStatusCode GetStatusCode returns status code in message
+func GetStatusCode(message string) (int, error) {
+	re := regexp.MustCompile(`^\d{3} `)
+	match := re.FindString(message)
+
+	if match == "" {
+		return -1, nil
+	}
+
+	code, err := strconv.Atoi(strings.TrimSpace(match))
+	if err != nil {
+		return -1, err
+	}
+	return code, nil
+}
+
+func generateFeed(feedURL string, query string) (string, error) {
+	feedData, err := GetContentFromCache(feedURL)
+	if err != nil {
+		return "", errors.WithStack(err)
+	}
+
+	sentry.ConfigureScope(func(scope *sentry.Scope) {
+		scope.SetContext("generateFeed", map[string]interface{}{
+			"feedData": feedData,
+		})
+	})
+
+	atom, err := GenerateSqueezedAtom(feedData, query)
+	if err != nil {
+		return "", errors.WithStack(err)
+	}
+
+	return atom, nil
 }
 
 // GenerateSqueezedAtom squeeze feedData with query
@@ -90,6 +159,7 @@ func GenerateSqueezedAtom(feedData string, query string) (string, error) {
 func Normalize(str string) string {
 	str = width.Fold.String(str)
 	str = strings.ToLower(str)
+	str = strings.TrimSpace(str)
 	return str
 }
 

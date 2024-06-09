@@ -72,6 +72,14 @@ func TestContainsKeyword(t *testing.T) {
 			},
 			want: true,
 		},
+		{
+			name: "empty keyword",
+			args: args{
+				source:  "XXX",
+				keyword: "",
+			},
+			want: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

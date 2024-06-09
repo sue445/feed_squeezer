@@ -60,6 +60,10 @@ func evaluateFactor(factor *Factor, text string) bool {
 
 // ContainsKeyword returns whether the passed text matches by keyword
 func ContainsKeyword(text string, keyword string) (bool, error) {
+	if keyword == "" {
+		return true, nil
+	}
+
 	expr, err := parser.ParseString("", keyword)
 	if err != nil {
 		return false, err
