@@ -12,6 +12,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -52,6 +53,22 @@ func feedHandler(res http.ResponseWriter, req *http.Request) {
 
 	fmt.Fprint(res, atom)
 	res.WriteHeader(http.StatusOK)
+}
+
+// GetStatusCode GetStatusCode returns status code in message
+func GetStatusCode(message string) (int, error) {
+	re := regexp.MustCompile(`^\d{3} `)
+	match := re.FindString(message)
+
+	if match == "" {
+		return -1, nil
+	}
+
+	code, err := strconv.Atoi(strings.TrimSpace(match))
+	if err != nil {
+		return -1, err
+	}
+	return code, nil
 }
 
 func generateFeed(feedURL string, query string) (string, error) {

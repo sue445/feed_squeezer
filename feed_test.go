@@ -118,3 +118,28 @@ func TestNormalize(t *testing.T) {
 		})
 	}
 }
+
+func TestGetStatusCode(t *testing.T) {
+	tests := []struct {
+		message string
+		want    int
+	}{
+		{
+			message: "404 Not Found",
+			want:    404,
+		},
+		{
+			message: "Not Found",
+			want:    -1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.message, func(t *testing.T) {
+			got, err := main.GetStatusCode(tt.message)
+
+			if assert.NoError(t, err) {
+				assert.Equal(t, tt.want, got)
+			}
+		})
+	}
+}
