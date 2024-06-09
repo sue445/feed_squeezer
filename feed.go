@@ -2,13 +2,18 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/allegro/bigcache/v3"
 	"github.com/cockroachdb/errors"
 	"github.com/getsentry/sentry-go"
+	"github.com/gorilla/feeds"
+	"github.com/mmcdole/gofeed"
+	"golang.org/x/text/width"
 	"io"
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -23,6 +28,95 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+// GenerateSqueezedAtom squeeze feedData with query
+func GenerateSqueezedAtom(feedData string, query string) (string, error) {
+	fp := gofeed.NewParser()
+
+	feed, err := fp.Parse(strings.NewReader(feedData))
+	if err != nil {
+		return "", errors.WithStack(err)
+	}
+
+	result := feeds.Feed{
+		Title:       fmt.Sprintf("%s (query:%s)", feed.Title, query),
+		Link:        &feeds.Link{Href: feed.Link},
+		Description: feed.Description,
+		Items:       nil,
+		Copyright:   feed.Copyright,
+	}
+
+	var itemUpdatedTimes []*time.Time
+
+	query = Normalize(query)
+
+	for _, item := range feed.Items {
+		itemUpdatedTimes = append(itemUpdatedTimes, item.UpdatedParsed)
+		description := getItemDescription(item)
+
+		text := item.Title + " " + description
+
+		contained, err := ContainsKeyword(Normalize(text), query)
+		if err != nil {
+			return "", errors.WithStack(err)
+		}
+
+		if contained {
+			result.Items = append(result.Items, &feeds.Item{
+				Id:          item.GUID,
+				Title:       item.Title,
+				Link:        &feeds.Link{Href: item.Link},
+				Description: description,
+				Created:     *item.PublishedParsed,
+			})
+		}
+	}
+
+	latestUpdatedTime := maxTime(itemUpdatedTimes)
+	if latestUpdatedTime != nil {
+		result.Updated = *latestUpdatedTime
+	}
+
+	atom, err := result.ToAtom()
+	if err != nil {
+		return "", errors.WithStack(err)
+	}
+
+	return atom + "\n", nil
+}
+
+// Normalize normalize string
+func Normalize(str string) string {
+	str = width.Fold.String(str)
+	str = strings.ToLower(str)
+	return str
+}
+
+func getItemDescription(item *gofeed.Item) string {
+	// Find <media:description>
+	groups := item.Extensions["media"]["group"]
+	for _, group := range groups {
+		if len(group.Children["description"]) > 0 {
+			return group.Children["description"][0].Value
+		}
+	}
+
+	return item.Description
+}
+
+func maxTime(times []*time.Time) *time.Time {
+	if len(times) < 1 {
+		return nil
+	}
+
+	max := times[0]
+	for _, t := range times {
+		if t.After(*max) {
+			max = t
+		}
+	}
+	return max
 }
 
 // GetContentFromURL returns content from URL (without cache)

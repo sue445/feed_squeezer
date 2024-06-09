@@ -14,6 +14,39 @@ func init() {
 	flag.Parse()
 }
 
+func TestGenerateSqueezedAtom(t *testing.T) {
+	type args struct {
+		feedXMLFile string
+		query       string
+	}
+	tests := []struct {
+		name        string
+		args        args
+		wantXMLFile string
+	}{
+		{
+			name: "Normal",
+			args: args{
+				feedXMLFile: "testdata/youtube_toei_animation.atom",
+				query:       "おジャ魔女どれみ",
+			},
+			wantXMLFile: "testdata/youtube_toei_animation_ojamajo.atom",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			feed := ReadTestData(tt.args.feedXMLFile)
+			want := ReadTestData(tt.wantXMLFile)
+
+			got, err := main.GenerateSqueezedAtom(feed, tt.args.query)
+
+			if assert.NoError(t, err) {
+				assert.Equal(t, want, got)
+			}
+		})
+	}
+}
+
 func TestGetContentFromURL(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
@@ -54,4 +87,26 @@ func ReadTestData(filename string) string {
 	}
 
 	return string(buf)
+}
+
+func TestNormalize(t *testing.T) {
+	tests := []struct {
+		str  string
+		want string
+	}{
+		{
+			str:  "GitLab",
+			want: "gitlab",
+		},
+		{
+			str:  "１２３",
+			want: "123",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.str, func(t *testing.T) {
+			got := main.Normalize(tt.str)
+			assert.Equal(t, tt.want, got)
+		})
+	}
 }
