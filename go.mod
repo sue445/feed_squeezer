@@ -5,6 +5,7 @@ go 1.22
 toolchain go1.22.0
 
 require (
+	github.com/alecthomas/participle/v2 v2.1.1
 	github.com/allegro/bigcache/v3 v3.1.0
 	github.com/cockroachdb/errors v1.11.3
 	github.com/getsentry/sentry-go v0.27.0
