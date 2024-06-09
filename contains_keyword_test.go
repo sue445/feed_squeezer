@@ -33,6 +33,14 @@ func TestContainsKeyword(t *testing.T) {
 			want: true,
 		},
 		{
+			name: "single keyword matches (full-width character)",
+			args: args{
+				source:  "ＸＸＸＡＡＡＸＸＸ",
+				keyword: "ＡＡＡ",
+			},
+			want: true,
+		},
+		{
 			name: "AAA BBB",
 			args: args{
 				source:  "AAABBB",
