@@ -19,8 +19,6 @@ var (
 	Revision string
 
 	isPrintVersion bool
-
-	sentryDsn string
 )
 
 func printVersion() {
@@ -31,10 +29,6 @@ func main() {
 	flag.BoolVar(&isPrintVersion, "version", false, "Whether showing version")
 
 	flag.Parse()
-
-	if os.Getenv("SENTRY_DSN") != "" {
-		sentryDsn = os.Getenv("SENTRY_DSN")
-	}
 
 	if isPrintVersion {
 		printVersion()
