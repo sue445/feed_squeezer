@@ -42,7 +42,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            asia-docker.pkg.dev/feed-squeezer/feed-squeezer/app
+            us-docker.pkg.dev/feed-squeezer/feed-squeezer/app
           tags: |
             type=sha,format=long
             type=edge,branch=main
