@@ -25,4 +25,13 @@ testrace:
 
 .PHONY: fmt
 fmt:
-	go fmt ./...
+	go fmt ./..
+
+.PHONY: tag
+tag:
+	git tag -a $(VERSION) -m "Release $(VERSION)"
+	git push --tags
+
+.PHONY: release
+release: tag
+	git push origin main
