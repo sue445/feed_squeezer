@@ -12,7 +12,6 @@ on:
       - synchronize
       - reopened
     paths-ignore:
-      - ".github/**"
       - "testdata/**"
       - "*_test.go"
       - "*.md"
