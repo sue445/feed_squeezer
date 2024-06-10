@@ -1,9 +1,9 @@
-# feed_proxy
+# feed_squeezer
 
 ## Running
 ```
 make
-./bin/feed_proxy
+./bin/feed_squeezer
 ```
 
 open http://localhost:8080/

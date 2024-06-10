@@ -4,7 +4,7 @@ import (
 	"flag"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/assert"
-	"github.com/sue445/feed_proxy"
+	"github.com/sue445/feed_squeezer"
 	"os"
 	"testing"
 )

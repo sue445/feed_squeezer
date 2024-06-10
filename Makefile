@@ -1,5 +1,5 @@
 # Requirements: git, go
-NAME     := feed_proxy
+NAME     := feed_squeezer
 VERSION  := $(shell cat VERSION)
 REVISION := $(shell git rev-parse --short HEAD)
 

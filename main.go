@@ -22,7 +22,7 @@ var (
 )
 
 func printVersion() {
-	fmt.Printf("feec_proxy %s, build %s\n", Version, Revision)
+	fmt.Printf("feed_squeezer %s, build %s\n", Version, Revision)
 }
 
 func main() {
@@ -64,7 +64,7 @@ func main() {
 	http.HandleFunc("/", sentryHandler.HandleFunc(indexHandler))
 	http.HandleFunc("/api/feed", sentryHandler.HandleFunc(feedHandler))
 
-	fmt.Printf("feed_proxy started: port=%s\n", port)
+	fmt.Printf("feed_squeezer started: port=%s\n", port)
 
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		panic(err)

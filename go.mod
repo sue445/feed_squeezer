@@ -1,4 +1,4 @@
-module github.com/sue445/feed_proxy
+module github.com/sue445/feed_squeezer
 
 go 1.22
 
