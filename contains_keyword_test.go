@@ -2,7 +2,7 @@ package main_test
 
 import (
 	"github.com/stretchr/testify/assert"
-	"github.com/sue445/feed_proxy"
+	"github.com/sue445/feed_squeezer"
 	"testing"
 )
 
