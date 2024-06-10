@@ -17,6 +17,10 @@ on:
       - "*_test.go"
       - "*.md"
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
