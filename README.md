@@ -45,6 +45,14 @@ open http://localhost:8080/
   * https://github.com/getsentry/sentry-go
   * https://docs.sentry.io/platforms/go/configuration/
 
+## Cli usage
+```bash
+$ ./feed_squeezer --help
+Usage of ./bin/feed_squeezer:
+  -version
+        Whether showing version
+```
+
 ## Endpoint
 ### GET /
 Display a simple form to generate _feed_squeezer_ URL
@@ -63,3 +71,6 @@ All parameters must be URL encoded
   * `AAA BBB` : Includes all (AND search)
   * `AAA | BBB` : Includes any (OR search)
   * `(AAA BBB) | CCC`, `(AAA | BBB) CCC` : Evaluate conditions in brackets first
+
+### GET /api/version
+Returns app version (same to `feed_squeezer -version`)
