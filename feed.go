@@ -60,7 +60,6 @@ func feedHandler(res http.ResponseWriter, req *http.Request) {
 	}
 
 	fmt.Fprint(res, atom)
-	res.WriteHeader(http.StatusOK)
 }
 
 // GetStatusCode GetStatusCode returns status code in message

@@ -27,5 +27,4 @@ func renderFile(res http.ResponseWriter, filename string) {
 
 	content := string(b)
 	fmt.Fprint(res, content)
-	res.WriteHeader(http.StatusOK)
 }
