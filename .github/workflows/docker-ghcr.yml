@@ -12,6 +12,7 @@ on:
       - synchronize
       - reopened
     paths-ignore:
+      - "doc/**"
       - "testdata/**"
       - "*_test.go"
       - "*.md"
