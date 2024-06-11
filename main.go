@@ -22,11 +22,7 @@ var (
 )
 
 func printVersion() {
-	if Revision == "" {
-		fmt.Printf("feed_squeezer %s\n", Version)
-	} else {
-		fmt.Printf("feed_squeezer %s, build %s\n", Version, Revision)
-	}
+	fmt.Printf("feed_squeezer %s, build %s\n", Version, Revision)
 }
 
 func main() {
