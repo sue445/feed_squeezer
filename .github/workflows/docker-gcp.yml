@@ -67,12 +67,18 @@ jobs:
         run: echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://us-docker.pkg.dev
 
       - name: Build and push
+        id: build
         uses: docker/build-push-action@v5
         with:
           context: .
           push: ${{ github.event_name == 'push' && (startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main') }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Test image
+        run: docker run --rm ${IMAGE_ID} -version
+        env:
+          IMAGE_ID: ${{ steps.build.outputs.imageid }}
 
       - name: Slack Notification
         uses: act10ns/slack@v2
