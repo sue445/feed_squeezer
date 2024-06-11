@@ -22,9 +22,9 @@
     <input v-model="query" id="query" class="form-control">
   </div>
   <div class="mb-3">
-    <label for="proxy_url" class="form-label">proxy url</label>
-    <input v-model="proxy_url" id="proxy_url" class="form-control" readonly>
-    <button class="btn btn-primary" data-clipboard-action="copy" data-clipboard-target="#proxy_url">
+    <label for="squeeze_url" class="form-label">squeeze url</label>
+    <input v-model="squeeze_url" id="squeeze_url" class="form-control" readonly>
+    <button class="btn btn-primary" data-clipboard-action="copy" data-clipboard-target="#squeeze_url">
       Copy
     </button>
   </div>
@@ -49,12 +49,12 @@
       const feed = ref("");
       const query = ref("");
 
-      const proxy_url = computed(() => {
+      const squeeze_url = computed(() => {
         const uri = new URL(window.location.href);
         return `${uri.origin}/api/feed?feed=${encodeURIComponent(feed.value)}&query=${encodeURIComponent(query.value)}`;
       });
 
-      const subscribe = computed(() => `/feed subscribe ${proxy_url.value}`);
+      const subscribe = computed(() => `/feed subscribe ${squeeze_url.value}`);
 
       onMounted(() => {
         new ClipboardJS('.btn');
@@ -63,7 +63,7 @@
       return {
         feed,
         query,
-        proxy_url,
+        squeeze_url,
         subscribe,
       };
     }
