@@ -230,6 +230,8 @@ func GetContentFromCache(url string) (string, error) {
 
 	err = feedCache.Set(url, []byte(content))
 	if err != nil {
+		log.Printf("[WARN] GetContentFromCache %v\n", errors.WithStack(err))
+
 		// Suppress errors but send them to Sentry
 		sentry.WithScope(func(scope *sentry.Scope) {
 			scope.SetLevel(sentry.LevelWarning)
