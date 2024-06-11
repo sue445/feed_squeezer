@@ -67,6 +67,7 @@ func main() {
 
 	http.HandleFunc("/", sentryHandler.HandleFunc(indexHandler))
 	http.HandleFunc("/api/feed", sentryHandler.HandleFunc(feedHandler))
+	http.HandleFunc("/api/version", sentryHandler.HandleFunc(versionHandler))
 
 	fmt.Printf("feed_squeezer started: port=%s\n", port)
 
