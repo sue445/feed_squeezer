@@ -13,6 +13,10 @@ import (
 var static embed.FS
 
 func indexHandler(res http.ResponseWriter, req *http.Request) {
+	if req.URL.Path != "/" {
+		http.NotFound(res, req)
+		return
+	}
 	renderFile(res, "public/index.html")
 }
 
