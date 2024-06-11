@@ -22,7 +22,11 @@ var (
 )
 
 func printVersion() {
-	fmt.Printf("feed_squeezer %s (revision %s)\n", Version, Revision)
+	fmt.Println(getVersion())
+}
+
+func getVersion() string {
+	return fmt.Sprintf("feed_squeezer %s (revision %s)", Version, Revision)
 }
 
 func main() {
@@ -63,6 +67,7 @@ func main() {
 
 	http.HandleFunc("/", sentryHandler.HandleFunc(indexHandler))
 	http.HandleFunc("/api/feed", sentryHandler.HandleFunc(feedHandler))
+	http.HandleFunc("/api/version", sentryHandler.HandleFunc(versionHandler))
 
 	fmt.Printf("feed_squeezer started: port=%s\n", port)
 
