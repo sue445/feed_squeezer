@@ -65,7 +65,7 @@ returns a new feed squeezed by any keyword in feed
 #### Parameters
 All parameters must be URL encoded
 
-* `feed` : feed URL
+* `url` : source feed url
 * `query` : query to squeeze feed
   * The following formats are supported
   * `AAA BBB` : Includes all (AND search)
