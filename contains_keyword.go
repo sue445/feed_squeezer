@@ -20,7 +20,7 @@ type Factor struct {
 }
 
 var keywordLexer = lexer.MustSimple([]lexer.SimpleRule{
-	{Name: "Ident", Pattern: `[\p{L}0-9_]+`},
+	{Name: "Ident", Pattern: `[^\s()|]+`},
 	{Name: "Punct", Pattern: `[()|]`},
 	{Name: "Whitespace", Pattern: `\s+`},
 })
