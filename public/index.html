@@ -14,8 +14,8 @@
   <h1>feed_squeezer</h1>
 
   <div class="mb-3">
-    <label for="feed" class="form-label">feed url</label>
-    <input v-model="feed" id="feed" class="form-control">
+    <label for="feed_url" class="form-label">feed url</label>
+    <input v-model="feed_url" id="feed_url" class="form-control">
   </div>
   <div class="mb-3">
     <label for="query" class="form-label">query</label>
@@ -66,12 +66,12 @@
 
   const app = createApp({
     setup() {
-      const feed = ref("");
+      const feed_url = ref("");
       const query = ref("");
 
       const squeeze_url = computed(() => {
         const uri = new URL(window.location.href);
-        return `${uri.origin}/api/feed?feed=${encodeURIComponent(feed.value)}&query=${encodeURIComponent(query.value)}`;
+        return `${uri.origin}/api/feed?url=${encodeURIComponent(feed_url.value)}&query=${encodeURIComponent(query.value)}`;
       });
 
       const subscribe = computed(() => `/feed subscribe ${squeeze_url.value}`);
@@ -81,7 +81,7 @@
       });
 
       return {
-        feed,
+        feed_url,
         query,
         squeeze_url,
         subscribe,

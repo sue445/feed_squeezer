@@ -32,7 +32,7 @@ func init() {
 }
 
 func feedHandler(res http.ResponseWriter, req *http.Request) {
-	feedURL := req.FormValue("feed")
+	feedURL := req.FormValue("url")
 	query := req.FormValue("query")
 
 	sentry.ConfigureScope(func(scope *sentry.Scope) {
