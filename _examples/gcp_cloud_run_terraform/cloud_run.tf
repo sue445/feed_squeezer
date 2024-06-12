@@ -26,6 +26,11 @@ resource "google_cloud_run_service" "feed_squeezer" {
           container_port = 8080
         }
 
+        env {
+          name  = "SENTRY_RELEASE"
+          value = var.tag
+        }
+
         dynamic "env" {
           for_each = length(var.sentry_dsn) > 0 ? [var.sentry_dsn] : []
 
