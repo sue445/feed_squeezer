@@ -65,13 +65,15 @@ func main() {
 		Repanic: true,
 	})
 
-	http.HandleFunc("/", sentryHandler.HandleFunc(indexHandler))
-	http.HandleFunc("/api/feed", sentryHandler.HandleFunc(feedHandler))
-	http.HandleFunc("/api/version", sentryHandler.HandleFunc(versionHandler))
+	mux := http.NewServeMux()
+
+	mux.HandleFunc("GET /", sentryHandler.HandleFunc(indexHandler))
+	mux.HandleFunc("GET /api/feed", sentryHandler.HandleFunc(feedHandler))
+	mux.HandleFunc("GET /api/version", sentryHandler.HandleFunc(versionHandler))
 
 	fmt.Printf("feed_squeezer started: port=%s\n", port)
 
-	if err := http.ListenAndServe(":"+port, nil); err != nil {
+	if err := http.ListenAndServe(":"+port, mux); err != nil {
 		panic(err)
 	}
 }
