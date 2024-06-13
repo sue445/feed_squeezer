@@ -69,7 +69,7 @@ func main() {
 
 	mux.HandleFunc("GET /", sentryHandler.HandleFunc(IndexHandler))
 	mux.HandleFunc("GET /api/feed", sentryHandler.HandleFunc(feedHandler))
-	mux.HandleFunc("GET /api/version", sentryHandler.HandleFunc(versionHandler))
+	mux.HandleFunc("GET /api/version", sentryHandler.HandleFunc(VersionHandler))
 
 	fmt.Printf("feed_squeezer started: port=%s\n", port)
 
