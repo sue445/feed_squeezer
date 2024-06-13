@@ -25,7 +25,7 @@ testrace:
 
 .PHONY: fmt
 fmt:
-	go fmt ./..
+	go fmt ./...
 
 .PHONY: tag
 tag:
