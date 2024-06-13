@@ -31,7 +31,7 @@ func init() {
 	}
 }
 
-func feedHandler(w http.ResponseWriter, r *http.Request) {
+func FeedHandler(w http.ResponseWriter, r *http.Request) {
 	feedURL := r.FormValue("url")
 	query := r.FormValue("query")
 
@@ -46,7 +46,7 @@ func feedHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		sentry.CaptureException(errors.WithStack(err))
-		log.Printf("[ERROR] feedHandler %v\n", errors.WithStack(err))
+		log.Printf("[ERROR] FeedHandler %v\n", errors.WithStack(err))
 
 		status, err2 := GetStatusCode(err.Error())
 		if err2 == nil && status >= 0 {

@@ -5,6 +5,9 @@ import (
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/assert"
 	"github.com/sue445/feed_squeezer"
+	"io"
+	"net/http/httptest"
+	"net/url"
 	"os"
 	"testing"
 )
@@ -141,5 +144,31 @@ func TestGetStatusCode(t *testing.T) {
 				assert.Equal(t, tt.want, got)
 			}
 		})
+	}
+}
+
+func TestFeedHandler(t *testing.T) {
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
+
+	httpmock.RegisterResponder("GET", "http://example.com/feed",
+		httpmock.NewStringResponder(200, ReadTestData("testdata/youtube_toei_animation.atom")))
+
+	r := httptest.NewRequest("GET", "/api/feed", nil)
+	w := httptest.NewRecorder()
+
+	r.Form = url.Values{}
+	r.Form.Add("url", "http://example.com/feed")
+	r.Form.Add("query", "おジャ魔女どれみ")
+
+	main.FeedHandler(w, r)
+
+	res := w.Result()
+
+	assert.Equal(t, 200, res.StatusCode)
+
+	body, err := io.ReadAll(res.Body)
+	if assert.NoError(t, err) {
+		assert.Contains(t, string(body), ReadTestData("testdata/youtube_toei_animation_ojamajo.atom"))
 	}
 }

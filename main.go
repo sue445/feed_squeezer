@@ -22,10 +22,10 @@ var (
 )
 
 func printVersion() {
-	fmt.Println(getVersion())
+	fmt.Println(GetVersion())
 }
 
-func getVersion() string {
+func GetVersion() string {
 	return fmt.Sprintf("feed_squeezer %s (revision %s)", Version, Revision)
 }
 
@@ -67,9 +67,9 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("GET /", sentryHandler.HandleFunc(indexHandler))
-	mux.HandleFunc("GET /api/feed", sentryHandler.HandleFunc(feedHandler))
-	mux.HandleFunc("GET /api/version", sentryHandler.HandleFunc(versionHandler))
+	mux.HandleFunc("GET /", sentryHandler.HandleFunc(IndexHandler))
+	mux.HandleFunc("GET /api/feed", sentryHandler.HandleFunc(FeedHandler))
+	mux.HandleFunc("GET /api/version", sentryHandler.HandleFunc(VersionHandler))
 
 	fmt.Printf("feed_squeezer started: port=%s\n", port)
 
