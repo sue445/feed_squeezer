@@ -1,9 +1,13 @@
 # feed_squeezer
 _feed_squeezer_ returns a new feed squeezed by any keyword in feed
 
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/sue445/feed_squeezer)
 [![test](https://github.com/sue445/feed_squeezer/actions/workflows/test.yml/badge.svg)](https://github.com/sue445/feed_squeezer/actions/workflows/test.yml)
 [![docker-ghcr](https://github.com/sue445/feed_squeezer/actions/workflows/docker-ghcr.yml/badge.svg)](https://github.com/sue445/feed_squeezer/actions/workflows/docker-ghcr.yml)
 [![docker-gcp](https://github.com/sue445/feed_squeezer/actions/workflows/docker-gcp.yml/badge.svg)](https://github.com/sue445/feed_squeezer/actions/workflows/docker-gcp.yml)
+[![Coverage Status](https://coveralls.io/repos/github/sue445/feed_squeezer/badge.svg?branch=main)](https://coveralls.io/github/sue445/feed_squeezer?branch=main)
+[![Go Report Card](https://goreportcard.com/badge/github.com/sue445/feed_squeezer)](https://goreportcard.com/report/github.com/sue445/feed_squeezer)
+[![Go Reference](https://pkg.go.dev/badge/github.com/sue445/feed_squeezer.svg)](https://pkg.go.dev/github.com/sue445/feed_squeezer)
 
 ## Getting started
 Run _feed_squeezer_ where it can be accessed from the Internet.
