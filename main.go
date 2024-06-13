@@ -67,7 +67,7 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("GET /", sentryHandler.HandleFunc(indexHandler))
+	mux.HandleFunc("GET /", sentryHandler.HandleFunc(IndexHandler))
 	mux.HandleFunc("GET /api/feed", sentryHandler.HandleFunc(feedHandler))
 	mux.HandleFunc("GET /api/version", sentryHandler.HandleFunc(versionHandler))
 
