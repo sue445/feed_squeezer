@@ -1,12 +1,14 @@
 package main
 
 import (
+	"bytes"
 	"embed"
 	"fmt"
 	"github.com/cockroachdb/errors"
 	"github.com/getsentry/sentry-go"
 	"log"
 	"net/http"
+	"text/template"
 )
 
 //go:embed public/*
@@ -29,6 +31,31 @@ func renderFile(w http.ResponseWriter, filename string) {
 		return
 	}
 
-	content := string(b)
-	fmt.Fprint(w, content)
+	tmpl := string(b)
+	t, err := template.New("index").Parse(tmpl)
+
+	if err != nil {
+		sentry.CaptureException(errors.WithStack(err))
+		log.Printf("[ERROR] renderFile %v\n", errors.WithStack(err))
+		http.Error(w, "error", http.StatusInternalServerError)
+		return
+	}
+
+	data := struct {
+		Version string
+	}{
+		Version: GetVersion(),
+	}
+
+	var buf bytes.Buffer
+	err = t.Execute(&buf, data)
+
+	if err != nil {
+		sentry.CaptureException(errors.WithStack(err))
+		log.Printf("[ERROR] renderFile %v\n", errors.WithStack(err))
+		http.Error(w, "error", http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Fprint(w, buf.String())
 }
