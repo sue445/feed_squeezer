@@ -1,7 +1,7 @@
 # feed_squeezer
 _feed_squeezer_ returns a new feed squeezed by any keyword in feed
 
-![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/sue445/feed_squeezer)
+[![Latest Version](https://img.shields.io/github/v/release/sue445/feed_squeezer)](https://github.com/sue445/feed_squeezer/releases)
 [![test](https://github.com/sue445/feed_squeezer/actions/workflows/test.yml/badge.svg)](https://github.com/sue445/feed_squeezer/actions/workflows/test.yml)
 [![docker-ghcr](https://github.com/sue445/feed_squeezer/actions/workflows/docker-ghcr.yml/badge.svg)](https://github.com/sue445/feed_squeezer/actions/workflows/docker-ghcr.yml)
 [![docker-gcp](https://github.com/sue445/feed_squeezer/actions/workflows/docker-gcp.yml/badge.svg)](https://github.com/sue445/feed_squeezer/actions/workflows/docker-gcp.yml)
