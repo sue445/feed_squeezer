@@ -22,10 +22,10 @@ var (
 )
 
 func printVersion() {
-	fmt.Println(getVersion())
+	fmt.Println(GetVersion())
 }
 
-func getVersion() string {
+func GetVersion() string {
 	return fmt.Sprintf("feed_squeezer %s (revision %s)", Version, Revision)
 }
 

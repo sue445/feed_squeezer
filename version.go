@@ -6,5 +6,5 @@ import (
 )
 
 func VersionHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, getVersion())
+	fmt.Fprint(w, GetVersion())
 }
