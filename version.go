@@ -5,6 +5,6 @@ import (
 	"net/http"
 )
 
-func versionHandler(res http.ResponseWriter, req *http.Request) {
-	fmt.Fprint(res, getVersion())
+func versionHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, getVersion())
 }

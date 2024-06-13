@@ -31,9 +31,9 @@ func init() {
 	}
 }
 
-func feedHandler(res http.ResponseWriter, req *http.Request) {
-	feedURL := req.FormValue("url")
-	query := req.FormValue("query")
+func feedHandler(w http.ResponseWriter, r *http.Request) {
+	feedURL := r.FormValue("url")
+	query := r.FormValue("query")
 
 	sentry.ConfigureScope(func(scope *sentry.Scope) {
 		scope.SetTags(map[string]string{
@@ -51,15 +51,15 @@ func feedHandler(res http.ResponseWriter, req *http.Request) {
 		status, err2 := GetStatusCode(err.Error())
 		if err2 == nil && status >= 0 {
 			// respect status code in error
-			http.Error(res, err.Error(), status)
+			http.Error(w, err.Error(), status)
 		} else {
-			http.Error(res, "internal error", http.StatusInternalServerError)
+			http.Error(w, "internal error", http.StatusInternalServerError)
 		}
 
 		return
 	}
 
-	fmt.Fprint(res, atom)
+	fmt.Fprint(w, atom)
 }
 
 // GetStatusCode GetStatusCode returns status code in message
