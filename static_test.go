@@ -18,9 +18,11 @@ func TestIndexHandler_Found(t *testing.T) {
 
 	assert.Equal(t, 200, res.StatusCode)
 
-	body, err := io.ReadAll(res.Body)
+	b, err := io.ReadAll(res.Body)
 	if assert.NoError(t, err) {
-		assert.Contains(t, string(body), "<title>feed_squeezer</title>")
+		body := string(b)
+		assert.Contains(t, body, "<title>feed_squeezer</title>")
+		assert.Contains(t, body, main.GetVersion())
 	}
 }
 
