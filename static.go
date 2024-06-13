@@ -12,23 +12,23 @@ import (
 //go:embed public/*
 var static embed.FS
 
-func indexHandler(res http.ResponseWriter, req *http.Request) {
-	if req.URL.Path != "/" {
-		http.NotFound(res, req)
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		http.NotFound(w, r)
 		return
 	}
-	renderFile(res, "public/index.html")
+	renderFile(w, "public/index.html")
 }
 
-func renderFile(res http.ResponseWriter, filename string) {
+func renderFile(w http.ResponseWriter, filename string) {
 	b, err := static.ReadFile(filename)
 	if err != nil {
 		sentry.CaptureException(errors.WithStack(err))
 		log.Printf("[ERROR] renderFile %v\n", errors.WithStack(err))
-		http.Error(res, "error", http.StatusInternalServerError)
+		http.Error(w, "error", http.StatusInternalServerError)
 		return
 	}
 
 	content := string(b)
-	fmt.Fprint(res, content)
+	fmt.Fprint(w, content)
 }
