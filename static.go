@@ -19,10 +19,10 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	renderFile(w, "public/index.html")
+	renderFile(w, r, "public/index.html")
 }
 
-func renderFile(w http.ResponseWriter, filename string) {
+func renderFile(w http.ResponseWriter, r *http.Request, filename string) {
 	b, err := static.ReadFile(filename)
 	if err != nil {
 		sentry.CaptureException(errors.WithStack(err))
@@ -43,8 +43,10 @@ func renderFile(w http.ResponseWriter, filename string) {
 
 	data := struct {
 		Version string
+		BaseURL string
 	}{
 		Version: GetVersion(),
+		BaseURL: getBaseURL(r),
 	}
 
 	var buf bytes.Buffer
@@ -58,4 +60,20 @@ func renderFile(w http.ResponseWriter, filename string) {
 	}
 
 	fmt.Fprint(w, buf.String())
+}
+
+func getBaseURL(r *http.Request) string {
+	return fmt.Sprintf("%s://%s/", getScheme(r), r.Host)
+}
+
+func getScheme(r *http.Request) string {
+	if r.TLS != nil {
+		return "https"
+	}
+
+	if proto := r.Header.Get("X-Forwarded-Proto"); proto != "" {
+		return proto
+	}
+
+	return "http"
 }

@@ -10,6 +10,8 @@ import (
 
 func TestIndexHandler_Found(t *testing.T) {
 	r := httptest.NewRequest("GET", "/", nil)
+	r.Host = "localhost:8080"
+
 	w := httptest.NewRecorder()
 
 	main.IndexHandler(w, r)
@@ -22,6 +24,7 @@ func TestIndexHandler_Found(t *testing.T) {
 	if assert.NoError(t, err) {
 		body := string(b)
 		assert.Contains(t, body, "<title>feed_squeezer</title>")
+		assert.Contains(t, body, `<meta property="og:url" content="http://localhost:8080/" />`)
 		assert.Contains(t, body, main.GetVersion())
 	}
 }
