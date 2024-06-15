@@ -26,12 +26,20 @@ This application is provided as a Docker image, so you can run it wherever you l
   * `us-docker.pkg.dev/feed-squeezer/feed-squeezer/app:vX.Y.Z`: Use specified version
   * `us-docker.pkg.dev/feed-squeezer/feed-squeezer/app:edge`: The contents of the main branch are pushed to this tag
 
+```bash
+docker run --rm -p 8080:8080 ghcr.io/sue445/feed_squeezer:latest
+```
+
+open http://localhost:8080/
+
 ### standalone binary
 Download latest binary from https://github.com/sue445/feed_squeezer/releases
 
 ```bash
 ./feed_squeezer
 ```
+
+open http://localhost:8080/
 
 ### Build yourself
 ```bash
