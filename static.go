@@ -19,10 +19,17 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	renderFile(w, "public/index.html")
+
+	data := struct {
+		Version string
+	}{
+		Version: GetVersion(),
+	}
+
+	renderTemplate(w, "public/index.html", data)
 }
 
-func renderFile(w http.ResponseWriter, filename string) {
+func renderFile(w http.ResponseWriter, filename string) { //nolint:unused
 	b, err := static.ReadFile(filename)
 	if err != nil {
 		sentry.CaptureException(errors.WithStack(err))
@@ -31,20 +38,27 @@ func renderFile(w http.ResponseWriter, filename string) {
 		return
 	}
 
-	tmpl := string(b)
-	t, err := template.New("index").Parse(tmpl)
+	content := string(b)
+	fmt.Fprint(w, content)
+}
 
+func renderTemplate(w http.ResponseWriter, filename string, data any) {
+	b, err := static.ReadFile(filename)
 	if err != nil {
 		sentry.CaptureException(errors.WithStack(err))
-		log.Printf("[ERROR] renderFile %v\n", errors.WithStack(err))
+		log.Printf("[ERROR] renderTemplate %v\n", errors.WithStack(err))
 		http.Error(w, "error", http.StatusInternalServerError)
 		return
 	}
 
-	data := struct {
-		Version string
-	}{
-		Version: GetVersion(),
+	tmpl := string(b)
+	t, err := template.New(filename).Parse(tmpl)
+
+	if err != nil {
+		sentry.CaptureException(errors.WithStack(err))
+		log.Printf("[ERROR] renderTemplate %v\n", errors.WithStack(err))
+		http.Error(w, "error", http.StatusInternalServerError)
+		return
 	}
 
 	var buf bytes.Buffer
@@ -52,7 +66,7 @@ func renderFile(w http.ResponseWriter, filename string) {
 
 	if err != nil {
 		sentry.CaptureException(errors.WithStack(err))
-		log.Printf("[ERROR] renderFile %v\n", errors.WithStack(err))
+		log.Printf("[ERROR] renderTemplate %v\n", errors.WithStack(err))
 		http.Error(w, "error", http.StatusInternalServerError)
 		return
 	}
