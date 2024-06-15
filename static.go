@@ -29,7 +29,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "public/index.html", data)
 }
 
-func renderFile(w http.ResponseWriter, filename string) {
+func renderFile(w http.ResponseWriter, filename string) { //nolint:unused
 	b, err := static.ReadFile(filename)
 	if err != nil {
 		sentry.CaptureException(errors.WithStack(err))
