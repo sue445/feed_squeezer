@@ -26,55 +26,59 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		Version: GetVersion(),
 	}
 
-	renderTemplate(w, "public/index.html", data)
+	err := renderTemplate(w, "public/index.html", data)
+	if err != nil {
+		sentry.CaptureException(errors.WithStack(err))
+		log.Printf("[ERROR] IndexHandler %v\n", errors.WithStack(err))
+		http.Error(w, "error", http.StatusInternalServerError)
+		return
+	}
 }
 
 func FaviconHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "image/svg+xml")
-	renderFile(w, "public/favicon.svg")
-}
-
-func renderFile(w http.ResponseWriter, filename string) {
-	b, err := static.ReadFile(filename)
+	err := renderFile(w, "public/favicon.svg")
 	if err != nil {
 		sentry.CaptureException(errors.WithStack(err))
-		log.Printf("[ERROR] renderFile %v\n", errors.WithStack(err))
+		log.Printf("[ERROR] FaviconHandler %v\n", errors.WithStack(err))
 		http.Error(w, "error", http.StatusInternalServerError)
 		return
+	}
+
+	w.Header().Set("Content-Type", "image/svg+xml")
+}
+
+func renderFile(w http.ResponseWriter, filename string) error {
+	b, err := static.ReadFile(filename)
+	if err != nil {
+		return err
 	}
 
 	content := string(b)
 	fmt.Fprint(w, content)
+
+	return nil
 }
 
-func renderTemplate(w http.ResponseWriter, filename string, data any) {
+func renderTemplate(w http.ResponseWriter, filename string, data any) error {
 	b, err := static.ReadFile(filename)
 	if err != nil {
-		sentry.CaptureException(errors.WithStack(err))
-		log.Printf("[ERROR] renderTemplate %v\n", errors.WithStack(err))
-		http.Error(w, "error", http.StatusInternalServerError)
-		return
+		return err
 	}
 
 	tmpl := string(b)
 	t, err := template.New(filename).Parse(tmpl)
-
 	if err != nil {
-		sentry.CaptureException(errors.WithStack(err))
-		log.Printf("[ERROR] renderTemplate %v\n", errors.WithStack(err))
-		http.Error(w, "error", http.StatusInternalServerError)
-		return
+		return err
 	}
 
 	var buf bytes.Buffer
 	err = t.Execute(&buf, data)
 
 	if err != nil {
-		sentry.CaptureException(errors.WithStack(err))
-		log.Printf("[ERROR] renderTemplate %v\n", errors.WithStack(err))
-		http.Error(w, "error", http.StatusInternalServerError)
-		return
+		return err
 	}
 
 	fmt.Fprint(w, buf.String())
+
+	return nil
 }
