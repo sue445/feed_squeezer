@@ -29,7 +29,11 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "public/index.html", data)
 }
 
-func renderFile(w http.ResponseWriter, filename string) { //nolint:unused
+func FaviconHandler(w http.ResponseWriter, r *http.Request) {
+	renderFile(w, "public/favicon.svg")
+}
+
+func renderFile(w http.ResponseWriter, filename string) {
 	b, err := static.ReadFile(filename)
 	if err != nil {
 		sentry.CaptureException(errors.WithStack(err))

@@ -68,6 +68,7 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("GET /", sentryHandler.HandleFunc(IndexHandler))
+	mux.HandleFunc("GET /favicon.svg", sentryHandler.HandleFunc(FaviconHandler))
 	mux.HandleFunc("GET /api/feed", sentryHandler.HandleFunc(FeedHandler))
 	mux.HandleFunc("GET /api/version", sentryHandler.HandleFunc(VersionHandler))
 
