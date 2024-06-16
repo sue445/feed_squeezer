@@ -3,7 +3,7 @@ NAME     := feed_squeezer
 VERSION  := $(shell cat VERSION)
 REVISION := $(shell git rev-parse --short HEAD)
 
-SRCS    := $(shell find . -type f -name '*.go' -or -name '*.html')
+SRCS    := $(shell find . -type f -name '*.go' -or -name '*.html' -or -name '*.svg')
 LDFLAGS := "-s -w -X \"main.Version=$(VERSION)\" -X \"main.Revision=$(REVISION)\""
 
 .DEFAULT_GOAL := bin/$(NAME)
