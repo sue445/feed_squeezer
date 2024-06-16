@@ -30,6 +30,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func FaviconHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "image/svg+xml")
 	renderFile(w, "public/favicon.svg")
 }
 

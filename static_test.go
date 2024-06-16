@@ -46,6 +46,7 @@ func TestFaviconHandler(t *testing.T) {
 	res := w.Result()
 
 	assert.Equal(t, 200, res.StatusCode)
+	assert.Equal(t, "image/svg+xml", w.Header().Get("Content-Type"))
 
 	b, err := io.ReadAll(res.Body)
 	if assert.NoError(t, err) {
