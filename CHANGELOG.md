@@ -5,7 +5,7 @@
 [full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.3...v0.1.4)
 
 * Set `no-referrer` to `index.html`
-*   https://github.com/sue445/feed_squeezer/pull/53
+  * https://github.com/sue445/feed_squeezer/pull/53
 
 ## [v0.1.3](https://github.com/sue445/feed_squeezer/releases/tag/v0.1.3)
 [full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.2...v0.1.3)
