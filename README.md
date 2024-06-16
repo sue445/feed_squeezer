@@ -86,3 +86,10 @@ All parameters must be URL encoded
 
 ### GET /api/version
 Returns app version (same to `feed_squeezer -version`)
+
+## LICENSE
+All programs are licensed under the [MIT License](LICENSE) Copyright (c) 2024 sue445.
+
+But only [favicon](public/favicon.svg)'s LICENCE belongs to [TopeconHeros](https://icooon-mono.com/)
+
+Original icon is [here](https://icooon-mono.com/11500-rss%E3%81%AE%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3/)
