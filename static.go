@@ -26,17 +26,19 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		Version: GetVersion(),
 	}
 
-	err := renderTemplate(w, "public/index.html", data)
+	content, err := renderTemplate("public/index.html", data)
 	if err != nil {
 		sentry.CaptureException(errors.WithStack(err))
 		log.Printf("[ERROR] IndexHandler %v\n", errors.WithStack(err))
 		http.Error(w, "error", http.StatusInternalServerError)
 		return
 	}
+
+	fmt.Fprint(w, content)
 }
 
 func FaviconHandler(w http.ResponseWriter, r *http.Request) {
-	err := renderFile(w, "public/favicon.svg")
+	content, err := renderFile("public/favicon.svg")
 	if err != nil {
 		sentry.CaptureException(errors.WithStack(err))
 		log.Printf("[ERROR] FaviconHandler %v\n", errors.WithStack(err))
@@ -44,41 +46,39 @@ func FaviconHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// NOTE: Response headers must be set before writing to response body
 	w.Header().Set("Content-Type", "image/svg+xml")
+
+	fmt.Fprint(w, content)
 }
 
-func renderFile(w http.ResponseWriter, filename string) error {
+func renderFile(filename string) (string, error) {
 	b, err := static.ReadFile(filename)
 	if err != nil {
-		return err
+		return "", err
 	}
 
-	content := string(b)
-	fmt.Fprint(w, content)
-
-	return nil
+	return string(b), nil
 }
 
-func renderTemplate(w http.ResponseWriter, filename string, data any) error {
+func renderTemplate(filename string, data any) (string, error) {
 	b, err := static.ReadFile(filename)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	tmpl := string(b)
 	t, err := template.New(filename).Parse(tmpl)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	var buf bytes.Buffer
 	err = t.Execute(&buf, data)
 
 	if err != nil {
-		return err
+		return "", err
 	}
 
-	fmt.Fprint(w, buf.String())
-
-	return nil
+	return buf.String(), nil
 }
