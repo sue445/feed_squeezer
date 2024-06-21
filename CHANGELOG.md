@@ -1,5 +1,12 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.4...main)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.5...main)
+
+## [v0.1.5](https://github.com/sue445/feed_squeezer/releases/tag/v0.1.5)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.4...v0.1.5)
+
+* Fixed Version and Revision are empty in binary download from releases
+  * https://github.com/sue445/feed_squeezer/pull/55
+* Update dependencies
 
 ## [v0.1.4](https://github.com/sue445/feed_squeezer/releases/tag/v0.1.4)
 [full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.3...v0.1.4)
