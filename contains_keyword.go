@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/alecthomas/participle/v2"
 	"github.com/alecthomas/participle/v2/lexer"
+	"github.com/cockroachdb/errors"
 	"strings"
 )
 
@@ -66,7 +67,7 @@ func ContainsKeyword(text string, keyword string) (bool, error) {
 
 	expr, err := parser.ParseString("", keyword)
 	if err != nil {
-		return false, err
+		return false, errors.WithStack(err)
 	}
 	return evaluateExpression(expr, text), nil
 }
