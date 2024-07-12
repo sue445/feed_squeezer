@@ -59,7 +59,7 @@ func TestGetContentFromURL(t *testing.T) {
 
 	got, err := main.GetContentFromURL("http://example.com/test.txt")
 	if assert.NoError(t, err) {
-		assert.Equal(t, got, "test")
+		assert.Equal(t, "test", got)
 	}
 }
 
@@ -72,12 +72,12 @@ func TestGetContentFromCache(t *testing.T) {
 
 	gotFromOrigin, err := main.GetContentFromURL("http://example.com/test.txt")
 	if assert.NoError(t, err) {
-		assert.Equal(t, gotFromOrigin, "test")
+		assert.Equal(t, "test", gotFromOrigin)
 	}
 
 	gotFromCache, err := main.GetContentFromURL("http://example.com/test.txt")
 	if assert.NoError(t, err) {
-		assert.Equal(t, gotFromCache, "test")
+		assert.Equal(t, "test", gotFromCache)
 	}
 }
 

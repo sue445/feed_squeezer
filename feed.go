@@ -73,7 +73,7 @@ func GetStatusCode(message string) (int, error) {
 
 	code, err := strconv.Atoi(strings.TrimSpace(match))
 	if err != nil {
-		return -1, err
+		return -1, errors.WithStack(err)
 	}
 	return code, nil
 }
