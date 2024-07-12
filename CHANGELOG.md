@@ -1,5 +1,11 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.5...main)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.6...main)
+
+## [v0.1.6](https://github.com/sue445/feed_squeezer/releases/tag/v0.1.6)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.5...v0.1.6)
+
+* Wrap all errors with `errors.WithStack`
+  * https://github.com/sue445/feed_squeezer/pull/57
 
 ## [v0.1.5](https://github.com/sue445/feed_squeezer/releases/tag/v0.1.5)
 [full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.4...v0.1.5)
