@@ -37,7 +37,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, content)
 }
 
-func FaviconHandler(w http.ResponseWriter, r *http.Request) {
+func FaviconHandler(w http.ResponseWriter, _ *http.Request) {
 	content, err := renderFile("public/favicon.svg")
 	if err != nil {
 		sentry.CaptureException(errors.WithStack(err))
