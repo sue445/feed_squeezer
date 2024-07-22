@@ -7,17 +7,17 @@ import (
 	"strings"
 )
 
-type Expression struct {
-	Terms []*Term `@@ { "|" @@ }` //nolint:govet
+type expression struct {
+	Terms []*term `@@ { "|" @@ }` //nolint:govet
 }
 
-type Term struct {
-	Factors []*Factor `@@ { @@ }` //nolint:govet
+type term struct {
+	Factors []*factor `@@ { @@ }` //nolint:govet
 }
 
-type Factor struct {
+type factor struct {
 	Keyword string      `  @Ident`     //nolint:govet
-	Group   *Expression `| "(" @@ ")"` //nolint:govet
+	Group   *expression `| "(" @@ ")"` //nolint:govet
 }
 
 var keywordLexer = lexer.MustSimple([]lexer.SimpleRule{
@@ -26,12 +26,12 @@ var keywordLexer = lexer.MustSimple([]lexer.SimpleRule{
 	{Name: "Whitespace", Pattern: `\s+`},
 })
 
-var parser = participle.MustBuild[Expression](
+var parser = participle.MustBuild[expression](
 	participle.Lexer(keywordLexer),
 	participle.Elide("Whitespace"),
 )
 
-func evaluateExpression(expr *Expression, text string) bool {
+func evaluateExpression(expr *expression, text string) bool {
 	for _, term := range expr.Terms {
 		if evaluateTerm(term, text) {
 			return true
@@ -40,7 +40,7 @@ func evaluateExpression(expr *Expression, text string) bool {
 	return false
 }
 
-func evaluateTerm(term *Term, text string) bool {
+func evaluateTerm(term *term, text string) bool {
 	for _, factor := range term.Factors {
 		if !evaluateFactor(factor, text) {
 			return false
@@ -49,7 +49,7 @@ func evaluateTerm(term *Term, text string) bool {
 	return true
 }
 
-func evaluateFactor(factor *Factor, text string) bool {
+func evaluateFactor(factor *factor, text string) bool {
 	if factor.Keyword != "" {
 		return strings.Contains(strings.ToLower(text), strings.ToLower(factor.Keyword))
 	}
