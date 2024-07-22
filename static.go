@@ -14,6 +14,7 @@ import (
 //go:embed public/*
 var static embed.FS
 
+// IndexHandler is handler for GET /
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
@@ -37,6 +38,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, content)
 }
 
+// FaviconHandler is handler for GET /favicon.svg
 func FaviconHandler(w http.ResponseWriter, _ *http.Request) {
 	content, err := renderFile("public/favicon.svg")
 	if err != nil {

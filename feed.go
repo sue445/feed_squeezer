@@ -31,6 +31,7 @@ func init() {
 	}
 }
 
+// FeedHandler is handler for GET /api/feed
 func FeedHandler(w http.ResponseWriter, r *http.Request) {
 	feedURL := r.FormValue("url")
 	query := r.FormValue("query")

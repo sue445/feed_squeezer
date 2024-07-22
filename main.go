@@ -25,6 +25,7 @@ func printVersion() {
 	fmt.Println(GetVersion())
 }
 
+// GetVersion returns self version
 func GetVersion() string {
 	return fmt.Sprintf("feed_squeezer %s (revision %s)", Version, Revision)
 }
