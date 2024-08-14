@@ -2,8 +2,6 @@ module github.com/sue445/feed_squeezer
 
 go 1.23
 
-toolchain go1.23.0
-
 require (
 	github.com/alecthomas/participle/v2 v2.1.1
 	github.com/allegro/bigcache/v3 v3.1.0
