@@ -6,7 +6,7 @@ require (
 	github.com/alecthomas/participle/v2 v2.1.1
 	github.com/allegro/bigcache/v3 v3.1.0
 	github.com/cockroachdb/errors v1.11.3
-	github.com/getsentry/sentry-go v0.29.0
+	github.com/getsentry/sentry-go v0.29.1
 	github.com/gorilla/feeds v1.2.0
 	github.com/jarcoal/httpmock v1.3.1
 	github.com/mmcdole/gofeed v1.3.0
