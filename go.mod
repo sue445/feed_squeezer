@@ -11,7 +11,7 @@ require (
 	github.com/jarcoal/httpmock v1.3.1
 	github.com/mmcdole/gofeed v1.3.0
 	github.com/stretchr/testify v1.10.0
-	golang.org/x/text v0.20.0
+	golang.org/x/text v0.21.0
 )
 
 require (
