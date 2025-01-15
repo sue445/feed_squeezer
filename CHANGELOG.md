@@ -1,5 +1,12 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.7...main)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.8...main)
+
+## [v0.1.8](https://github.com/sue445/feed_squeezer/releases/tag/v0.1.8)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.7...v0.1.8)
+
+* [CVE-2024-45338] Bump golang.org/x/net from 0.23.0 to 0.33.0
+  * https://github.com/sue445/feed_squeezer/pull/72
+* Update dependencies
 
 ## [v0.1.7](https://github.com/sue445/feed_squeezer/releases/tag/v0.1.7)
 [full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.6...v0.1.7)
