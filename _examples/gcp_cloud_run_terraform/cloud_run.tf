@@ -1,5 +1,5 @@
 resource "google_cloud_run_service" "feed_squeezer" {
-  name     = var.name
+  name     = var.service_name
   location = var.location
 
   template {
@@ -11,6 +11,8 @@ resource "google_cloud_run_service" "feed_squeezer" {
     }
 
     spec {
+      service_account_name = google_service_account.feed_squeezer.email
+
       containers {
         # c.f. https://console.cloud.google.com/artifacts/docker/feed-squeezer/us/feed-squeezer/app
         image = "us-docker.pkg.dev/feed-squeezer/feed-squeezer/app:${var.tag}"

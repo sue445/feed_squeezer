@@ -1,6 +1,6 @@
-variable "name" {
+variable "service_name" {
   type        = string
-  description = "Cloud Run app name"
+  description = "Cloud Run service name"
   default     = "feed-squeezer"
 }
 
@@ -33,4 +33,10 @@ variable "max_instance_count" {
   type        = number
   description = "max instances"
   default     = 1
+}
+
+variable "service_account_name" {
+  type        = string
+  description = "ServiceAccount name"
+  default     = "feed-squeezer"
 }
