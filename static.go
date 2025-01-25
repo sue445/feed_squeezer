@@ -64,12 +64,11 @@ func renderFile(filename string) (string, error) {
 }
 
 func renderTemplate(filename string, data any) (string, error) {
-	b, err := static.ReadFile(filename)
+	tmpl, err := renderFile(filename)
 	if err != nil {
 		return "", errors.WithStack(err)
 	}
 
-	tmpl := string(b)
 	t, err := template.New(filename).Parse(tmpl)
 	if err != nil {
 		return "", errors.WithStack(err)
