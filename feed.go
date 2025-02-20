@@ -110,7 +110,7 @@ func GenerateSqueezedAtom(feedData string, query string) (string, error) {
 
 	result := feeds.Feed{
 		Title:       fmt.Sprintf("%s (query:%s)", feed.Title, query),
-		Link:        &feeds.Link{Href: feed.Link},
+		Link:        &feeds.Link{Href: getFeedLink(feed)},
 		Description: feed.Description,
 		Items:       nil,
 		Copyright:   feed.Copyright,
@@ -161,6 +161,18 @@ func Normalize(str string) string {
 	str = strings.ToLower(str)
 	str = strings.TrimSpace(str)
 	return str
+}
+
+func getFeedLink(feed *gofeed.Feed) string {
+	if feed.Link != "" {
+		return feed.Link
+	}
+
+	if feed.FeedLink != "" {
+		return feed.FeedLink
+	}
+
+	return ""
 }
 
 func getItemDescription(item *gofeed.Item) string {

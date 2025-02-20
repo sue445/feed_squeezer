@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
   <title>Cloud Run functions - Release notes (query:ruby)</title>
-  <id></id>
+  <id>https://cloud.google.com/feeds/functions-release-notes.xml</id>
   <updated>2025-02-19T08:00:00Z</updated>
-  <link href=""></link>
+  <link href="https://cloud.google.com/feeds/functions-release-notes.xml"></link>
   <entry>
     <title>July 31, 2024</title>
     <updated>2024-07-31T07:00:00Z</updated>
