@@ -110,7 +110,7 @@ func GenerateSqueezedAtom(feedData string, query string) (string, error) {
 
 	result := feeds.Feed{
 		Title:       fmt.Sprintf("%s (query:%s)", feed.Title, query),
-		Link:        &feeds.Link{Href: feed.Link},
+		Link:        &feeds.Link{Href: getFeedLink(feed)},
 		Description: feed.Description,
 		Items:       nil,
 		Copyright:   feed.Copyright,
@@ -163,6 +163,18 @@ func Normalize(str string) string {
 	return str
 }
 
+func getFeedLink(feed *gofeed.Feed) string {
+	if feed.Link != "" {
+		return feed.Link
+	}
+
+	if feed.FeedLink != "" {
+		return feed.FeedLink
+	}
+
+	return ""
+}
+
 func getItemDescription(item *gofeed.Item) string {
 	// Find <media:description>
 	groups := item.Extensions["media"]["group"]
@@ -170,6 +182,11 @@ func getItemDescription(item *gofeed.Item) string {
 		if len(group.Children["description"]) > 0 {
 			return group.Children["description"][0].Value
 		}
+	}
+
+	// Find <content>
+	if item.Content != "" {
+		return item.Content
 	}
 
 	return item.Description
