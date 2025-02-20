@@ -1,5 +1,11 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.9...main)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.0...main)
+
+## [v0.2.0](https://github.com/sue445/feed_squeezer/releases/tag/v0.2.0)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.9...v0.2.0)
+
+* Support content tag in feed
+  * https://github.com/sue445/feed_squeezer/pull/79
 
 ## [v0.1.9](https://github.com/sue445/feed_squeezer/releases/tag/v0.1.9)
 [full changelog](http://github.com/sue445/feed_squeezer/compare/v0.1.8...v0.1.9)
