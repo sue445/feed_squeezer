@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Cloud Run functions - Release notes (query:ruby)</title>
+  <id></id>
+  <updated>2025-02-19T08:00:00Z</updated>
+  <link href=""></link>
+  <entry>
+    <title>July 31, 2024</title>
+    <updated>2024-07-31T07:00:00Z</updated>
+    <id>tag:google.com,2016:functions-release-notes#July_31_2024</id>
+    <link href="https://cloud.google.com/functions/docs/release-notes#July_31_2024" rel="alternate"></link>
+    <summary type="html">&lt;h3&gt;Feature&lt;/h3&gt;&#xA;&lt;p&gt;Cloud Functions now supports the &lt;a href=&#34;https://cloud.google.com/functions/docs/runtime-support#ruby&#34;&gt;Ruby 3.3 runtime&lt;/a&gt; at the &lt;a href=&#34;https://cloud.google.com/products/#product-launch-stages&#34;&gt;General Availability release level&lt;/a&gt;.&lt;/p&gt;&#xA;</summary>
+  </entry>
+  <entry>
+    <title>June 18, 2024</title>
+    <updated>2024-06-18T07:00:00Z</updated>
+    <id>tag:google.com,2016:functions-release-notes#June_18_2024</id>
+    <link href="https://cloud.google.com/functions/docs/release-notes#June_18_2024" rel="alternate"></link>
+    <summary type="html">&lt;h3&gt;Feature&lt;/h3&gt;&#xA;&lt;p&gt;Cloud Functions has added support for a new runtime, &lt;a href=&#34;https://cloud.google.com/functions/docs/concepts/ruby-runtime&#34;&gt;Ruby 3.3&lt;/a&gt;, at the &lt;a href=&#34;https://cloud.google.com/products/#product-launch-stages&#34;&gt;Preview release level&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;h3&gt;Changed&lt;/h3&gt;&#xA;&lt;p&gt;You can now enable execution ID in the logs for 2nd gen Python functions that use &lt;code&gt;functions-framework &amp;gt;= 3.7.0&lt;/code&gt; and 2nd gen Node.js functions that use &lt;code&gt;functions-framework &amp;gt;= 3.4.0&lt;/code&gt; by setting the runtime environment variable &lt;code&gt;LOG_EXECUTION_ID&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;. &lt;/p&gt;&#xA;</summary>
+  </entry>
+</feed>

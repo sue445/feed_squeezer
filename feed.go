@@ -172,6 +172,11 @@ func getItemDescription(item *gofeed.Item) string {
 		}
 	}
 
+	// Find <content>
+	if item.Content != "" {
+		return item.Content
+	}
+
 	return item.Description
 }
 

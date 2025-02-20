@@ -35,6 +35,14 @@ func TestGenerateSqueezedAtom(t *testing.T) {
 			},
 			wantXMLFile: "testdata/youtube_toei_animation_ojamajo.atom",
 		},
+		{
+			name: "keyword included in content tag",
+			args: args{
+				feedXMLFile: "testdata/functions-release-notes.xml",
+				query:       "ruby",
+			},
+			wantXMLFile: "testdata/functions-release-notes-ruby.xml",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
