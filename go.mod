@@ -3,7 +3,7 @@ module github.com/sue445/feed_squeezer
 go 1.24
 
 require (
-	github.com/alecthomas/participle/v2 v2.1.3
+	github.com/alecthomas/participle/v2 v2.1.4
 	github.com/allegro/bigcache/v3 v3.1.0
 	github.com/cockroachdb/errors v1.11.3
 	github.com/getsentry/sentry-go v0.31.1
