@@ -8,7 +8,7 @@ require (
 	github.com/cockroachdb/errors v1.11.3
 	github.com/getsentry/sentry-go v0.31.1
 	github.com/gorilla/feeds v1.2.0
-	github.com/jarcoal/httpmock v1.3.1
+	github.com/jarcoal/httpmock v1.4.0
 	github.com/mmcdole/gofeed v1.3.0
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/text v0.23.0
