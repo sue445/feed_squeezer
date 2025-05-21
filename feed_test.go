@@ -59,8 +59,7 @@ func TestGenerateSqueezedAtom(t *testing.T) {
 }
 
 func TestGetContentFromURL(t *testing.T) {
-	httpmock.Activate()
-	defer httpmock.DeactivateAndReset()
+	httpmock.Activate(t)
 
 	httpmock.RegisterResponder("GET", "http://example.com/test.txt",
 		httpmock.NewStringResponder(200, ReadTestData("testdata/test.txt")))
@@ -72,8 +71,7 @@ func TestGetContentFromURL(t *testing.T) {
 }
 
 func TestGetContentFromCache(t *testing.T) {
-	httpmock.Activate()
-	defer httpmock.DeactivateAndReset()
+	httpmock.Activate(t)
 
 	httpmock.RegisterResponder("GET", "http://example.com/test.txt",
 		httpmock.NewStringResponder(200, ReadTestData("testdata/test.txt")))
@@ -156,8 +154,7 @@ func TestGetStatusCode(t *testing.T) {
 }
 
 func TestFeedHandler(t *testing.T) {
-	httpmock.Activate()
-	defer httpmock.DeactivateAndReset()
+	httpmock.Activate(t)
 
 	httpmock.RegisterResponder("GET", "http://example.com/feed",
 		httpmock.NewStringResponder(200, ReadTestData("testdata/youtube_toei_animation.atom")))
