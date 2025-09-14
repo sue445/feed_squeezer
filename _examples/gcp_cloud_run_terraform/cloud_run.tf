@@ -2,6 +2,12 @@ resource "google_cloud_run_service" "feed_squeezer" {
   name     = var.service_name
   location = var.location
 
+  metadata {
+    annotations = {
+      "run.googleapis.com/invoker-iam-disabled" = true
+    }
+  }
+
   template {
     metadata {
       annotations = {
@@ -51,16 +57,4 @@ resource "google_cloud_run_service" "feed_squeezer" {
   }
 
   autogenerate_revision_name = true
-}
-
-resource "google_cloud_run_service_iam_member" "feed_squeezer_allow_public_access" {
-  for_each = toset([
-    "roles/run.invoker",
-  ])
-
-  location = google_cloud_run_service.feed_squeezer.location
-  project  = google_cloud_run_service.feed_squeezer.project
-  service  = google_cloud_run_service.feed_squeezer.name
-  role     = each.key
-  member   = "allUsers"
 }
