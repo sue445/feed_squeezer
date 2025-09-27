@@ -75,8 +75,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
-
       - uses: golang/govulncheck-action@v1
         with:
           go-version-file: "go.mod"
