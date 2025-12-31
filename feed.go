@@ -63,7 +63,7 @@ func FeedHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, atom)
 }
 
-// GetStatusCode GetStatusCode returns status code in message
+// GetStatusCode returns status code in message
 func GetStatusCode(message string) (int, error) {
 	re := regexp.MustCompile(`^\d{3} `)
 	match := re.FindString(message)
