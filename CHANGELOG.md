@@ -1,5 +1,14 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.1...main)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.2...main)
+
+## [v0.2.2](https://github.com/sue445/feed_squeezer/releases/tag/v0.2.2)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.1...v0.2.2)
+
+* [CVE-2025-47911][CVE-2025-58190] Upgrade to golang.org/x/net v0.45.0
+  * https://github.com/sue445/feed_squeezer/pull/142
+* Upgrade to Go 1.26 :rocket:
+  * https://github.com/sue445/feed_squeezer/pull/141
+* Update dependencies
 
 ## [v0.2.1](https://github.com/sue445/feed_squeezer/releases/tag/v0.2.1)
 [full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.0...v0.2.1)
