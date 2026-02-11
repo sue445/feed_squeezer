@@ -1,6 +1,6 @@
 module github.com/sue445/feed_squeezer
 
-go 1.25
+go 1.26
 
 require (
 	github.com/alecthomas/participle/v2 v2.1.4
