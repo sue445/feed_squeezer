@@ -1,5 +1,12 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.2...main)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.3...main)
+
+## [v0.2.3](https://github.com/sue445/feed_squeezer/releases/tag/v0.2.3)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.2...v0.2.3)
+
+* [CVE-2026-25680][CVE-2026-25681][CVE-2026-27136][CVE-2026-42502][CVE-2026-42506] Upgrade to golang.org/x/net v0.55.0
+  * https://github.com/sue445/feed_squeezer/pull/176
+* Update dependencies
 
 ## [v0.2.2](https://github.com/sue445/feed_squeezer/releases/tag/v0.2.2)
 [full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.1...v0.2.2)
