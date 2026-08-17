@@ -9,7 +9,7 @@ require (
 	github.com/getsentry/sentry-go v0.48.0
 	github.com/gorilla/feeds v1.2.0
 	github.com/jarcoal/httpmock v1.4.2
-	github.com/mmcdole/gofeed v1.4.0
+	github.com/mmcdole/gofeed v1.4.1
 	github.com/stretchr/testify v1.12.0
 	golang.org/x/text v0.40.0
 )
@@ -23,7 +23,7 @@ require (
 	github.com/mmcdole/goxpp/v2 v2.0.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
-	golang.org/x/net v0.56.0 // indirect
-	golang.org/x/sys v0.46.0 // indirect
+	golang.org/x/net v0.57.0 // indirect
+	golang.org/x/sys v0.47.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
