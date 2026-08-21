@@ -1,5 +1,12 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.3...main)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.4...main)
+
+## [v0.2.4](https://github.com/sue445/feed_squeezer/releases/tag/v0.2.4)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.3...v0.2.4)
+
+* Upgrade to Go 1.27 :rocket:
+  * https://github.com/sue445/feed_squeezer/pull/196
+* Update dependencies
 
 ## [v0.2.3](https://github.com/sue445/feed_squeezer/releases/tag/v0.2.3)
 [full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.2...v0.2.3)
