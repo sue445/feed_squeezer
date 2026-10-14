@@ -1,5 +1,12 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.5...main)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.6...main)
+
+## [v0.2.6](https://github.com/sue445/feed_squeezer/releases/tag/v0.2.6)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.5...v0.2.6)
+
+* fix: identify feed requests with a versioned User-Agent
+  * https://github.com/sue445/feed_squeezer/pull/212
+* Update dependencies
 
 ## [v0.2.5](https://github.com/sue445/feed_squeezer/releases/tag/v0.2.5)
 [full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.4...v0.2.5)
