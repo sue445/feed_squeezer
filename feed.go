@@ -208,7 +208,14 @@ func maxTime(times []*time.Time) *time.Time {
 
 // GetContentFromURL returns content from URL (without cache)
 func GetContentFromURL(url string) (string, error) {
-	resp, err := http.Get(url)
+	req, err := http.NewRequest(http.MethodGet, url, nil)
+	if err != nil {
+		return "", errors.WithStack(err)
+	}
+	// Some feed providers return non-feed content for Go's default User-Agent.
+	req.Header.Set("User-Agent", fmt.Sprintf("feed_squeezer/%s (+https://github.com/sue445/feed_squeezer)", Version))
+
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return "", errors.WithStack(err)
 	}
