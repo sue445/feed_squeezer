@@ -6,6 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/sue445/feed_squeezer"
 	"io"
+	"net/http"
 	"net/http/httptest"
 	"net/url"
 	"os"
@@ -67,6 +68,42 @@ func TestGetContentFromURL(t *testing.T) {
 	got, err := main.GetContentFromURL("http://example.com/test.txt")
 	if assert.NoError(t, err) {
 		assert.Equal(t, "test", got)
+	}
+}
+
+func TestGetContentFromURLGoogleCloudFeed(t *testing.T) {
+	httpmock.Activate(t)
+	originalVersion := main.Version
+	main.Version = "v1.2.3"
+	t.Cleanup(func() { main.Version = originalVersion })
+
+	const feedURL = "https://cloud.google.com/feeds/functions-release-notes.xml"
+	const redirectedURL = "https://docs.cloud.google.com/feeds/functions-release-notes.xml"
+	want := ReadTestData("testdata/functions-release-notes.xml")
+
+	checkUserAgent := func(t *testing.T, r *http.Request) bool {
+		return assert.Equal(t, "feed_squeezer/v1.2.3 (+https://github.com/sue445/feed_squeezer)", r.Header.Get("User-Agent"))
+	}
+	httpmock.RegisterResponder("GET", feedURL, func(r *http.Request) (*http.Response, error) {
+		if !checkUserAgent(t, r) {
+			return httpmock.NewStringResponse(http.StatusOK, "OK"), nil
+		}
+		response := httpmock.NewStringResponse(http.StatusMovedPermanently, "")
+		response.Header.Set("Location", redirectedURL)
+		return response, nil
+	})
+	httpmock.RegisterResponder("GET", redirectedURL, func(r *http.Request) (*http.Response, error) {
+		checkUserAgent(t, r)
+		return httpmock.NewStringResponse(http.StatusOK, want), nil
+	})
+
+	got, err := main.GetContentFromURL(feedURL)
+	if assert.NoError(t, err) {
+		assert.Equal(t, want, got)
+		atom, err := main.GenerateSqueezedAtom(got, "ruby")
+		if assert.NoError(t, err) {
+			assert.Equal(t, ReadTestData("testdata/functions-release-notes-ruby.xml"), atom)
+		}
 	}
 }
 
