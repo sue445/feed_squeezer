@@ -60,6 +60,9 @@ func FeedHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.Header().Set("Content-Type", "application/atom+xml; charset=utf-8")
+	w.Header().Set("X-Content-Type-Options", "nosniff")
+	//nolint:gosec // G705: ToAtom XML-encodes the feed, which is served with an explicit Atom media type.
 	fmt.Fprint(w, atom)
 }
 

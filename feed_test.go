@@ -208,6 +208,8 @@ func TestFeedHandler(t *testing.T) {
 	res := w.Result()
 
 	assert.Equal(t, 200, res.StatusCode)
+	assert.Equal(t, "application/atom+xml; charset=utf-8", res.Header.Get("Content-Type"))
+	assert.Equal(t, "nosniff", res.Header.Get("X-Content-Type-Options"))
 
 	body, err := io.ReadAll(res.Body)
 	if assert.NoError(t, err) {
