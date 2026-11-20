@@ -60,6 +60,9 @@ func FeedHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.Header().Set("Content-Type", "application/atom+xml; charset=utf-8")
+	w.Header().Set("X-Content-Type-Options", "nosniff")
+	//nolint:gosec // G705: ToAtom XML-encodes the feed, which is served with an explicit Atom media type.
 	fmt.Fprint(w, atom)
 }
 
@@ -208,6 +211,7 @@ func maxTime(times []*time.Time) *time.Time {
 
 // GetContentFromURL returns content from URL (without cache)
 func GetContentFromURL(url string) (string, error) {
+	//nolint:gosec // G704: The feed client checks the resolved destination before connecting.
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
 		return "", errors.WithStack(err)
@@ -215,7 +219,8 @@ func GetContentFromURL(url string) (string, error) {
 	// Some feed providers return non-feed content for Go's default User-Agent.
 	req.Header.Set("User-Agent", fmt.Sprintf("feed_squeezer/%s (+https://github.com/sue445/feed_squeezer)", Version))
 
-	resp, err := http.DefaultClient.Do(req)
+	//nolint:gosec // G704: The feed client checks the resolved destination, including redirects.
+	resp, err := feedHTTPClient.Do(req)
 	if err != nil {
 		return "", errors.WithStack(err)
 	}

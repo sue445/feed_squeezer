@@ -60,7 +60,8 @@ func TestGenerateSqueezedAtom(t *testing.T) {
 }
 
 func TestGetContentFromURL(t *testing.T) {
-	httpmock.Activate(t)
+	httpmock.ActivateNonDefault(main.FeedHTTPClient)
+	t.Cleanup(httpmock.DeactivateAndReset)
 
 	httpmock.RegisterResponder("GET", "http://example.com/test.txt",
 		httpmock.NewStringResponder(200, ReadTestData("testdata/test.txt")))
@@ -71,8 +72,14 @@ func TestGetContentFromURL(t *testing.T) {
 	}
 }
 
+func TestGetContentFromURLRejectsLoopback(t *testing.T) {
+	_, err := main.GetContentFromURL("http://127.0.0.1/feed")
+	assert.ErrorContains(t, err, "is not a public IP address")
+}
+
 func TestGetContentFromURLGoogleCloudFeed(t *testing.T) {
-	httpmock.Activate(t)
+	httpmock.ActivateNonDefault(main.FeedHTTPClient)
+	t.Cleanup(httpmock.DeactivateAndReset)
 	originalVersion := main.Version
 	main.Version = "v1.2.3"
 	t.Cleanup(func() { main.Version = originalVersion })
@@ -108,7 +115,8 @@ func TestGetContentFromURLGoogleCloudFeed(t *testing.T) {
 }
 
 func TestGetContentFromCache(t *testing.T) {
-	httpmock.Activate(t)
+	httpmock.ActivateNonDefault(main.FeedHTTPClient)
+	t.Cleanup(httpmock.DeactivateAndReset)
 
 	httpmock.RegisterResponder("GET", "http://example.com/test.txt",
 		httpmock.NewStringResponder(200, ReadTestData("testdata/test.txt")))
@@ -191,7 +199,8 @@ func TestGetStatusCode(t *testing.T) {
 }
 
 func TestFeedHandler(t *testing.T) {
-	httpmock.Activate(t)
+	httpmock.ActivateNonDefault(main.FeedHTTPClient)
+	t.Cleanup(httpmock.DeactivateAndReset)
 
 	httpmock.RegisterResponder("GET", "http://example.com/feed",
 		httpmock.NewStringResponder(200, ReadTestData("testdata/youtube_toei_animation.atom")))
@@ -208,6 +217,8 @@ func TestFeedHandler(t *testing.T) {
 	res := w.Result()
 
 	assert.Equal(t, 200, res.StatusCode)
+	assert.Equal(t, "application/atom+xml; charset=utf-8", res.Header.Get("Content-Type"))
+	assert.Equal(t, "nosniff", res.Header.Get("X-Content-Type-Options"))
 
 	body, err := io.ReadAll(res.Body)
 	if assert.NoError(t, err) {
