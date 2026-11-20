@@ -1,5 +1,12 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.7...main)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.8...main)
+
+## [v0.2.8](https://github.com/sue445/feed_squeezer/releases/tag/v0.2.8)
+[full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.7...v0.2.8)
+
+* Introduce gosec
+  * https://github.com/sue445/feed_squeezer/pull/222
+* Update dependencies
 
 ## [v0.2.7](https://github.com/sue445/feed_squeezer/releases/tag/v0.2.7)
 [full changelog](http://github.com/sue445/feed_squeezer/compare/v0.2.6...v0.2.7)
